@@ -1,0 +1,9 @@
+[build]
+  command = "unzip -q soundwave-netlify.zip -d .netlify-source && cp -R .netlify-source/soundwave/. . && npm install --no-audit --no-fund && npx prisma generate && npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
