@@ -1,5 +1,5 @@
 [build]
-  command = "unzip -q soundwave-netlify.zip -d .netlify-source && cp -R .netlify-source/soundwave/. . && npm install --no-audit --no-fund && npx prisma generate && npm run build"
+  command = "cat archive.part.*.b64 | base64 -d > soundwave.zip && unzip -q soundwave.zip -d .netlify-source && cp -R .netlify-source/soundwave/. . && npm install --no-audit --no-fund && npx prisma generate && npm run build"
   publish = ".next"
 
 [build.environment]
