@@ -1,10 +1,20 @@
 # Soundwave
 
-A responsive music-discovery preview deployed as a static site on Netlify.
+A responsive music-discovery preview deployed on Netlify.
 
-## Live preview
+## Live site
 
 https://wondrous-buttercream-752929.netlify.app
+
+## Music in the live preview
+
+- Official Spotify Embed: Clean Pop Hits playlist featuring recognizable pop tracks such as Blinding Lights, Die With A Smile, End of Beginning and Cruel Summer.
+- Audius discovery catalog: independent artist tracks and search, played in a separate Soundwave HTML5 player.
+- No more SoundHelix sample/test MP3s.
+
+## Spotify playback
+
+The Spotify playlist is embedded through Spotify's official website embed. Playback and account/region availability are controlled by Spotify. Spotify audio stays inside the Spotify player and is not mixed with Audius streams.
 
 ## Deploy
 
@@ -12,26 +22,12 @@ Netlify builds the repository root:
 - Build command: `echo 'Soundwave preview is ready'`
 - Publish directory: `.`
 
-The preview has no build-time secrets or database requirement.
+The site is static and does not require build-time secrets.
 
-## Features in the live preview
+## Current scope
 
-- Responsive dark layout
-- Live Audius trending catalogue and track search (read-only public API)
-- HTML5 streaming player for tracks returned by Audius
-- Play/pause, next/previous, seek, volume, shuffle and repeat
-- Curated mood cards
-- Likes stored in the current browser with localStorage
-- Separate Spotify search links for each track
-
-## Spotify
-
-Spotify links open Spotify search for the selected artist and track. Soundwave does not extract or proxy Spotify audio. Spotify playback stays on Spotify; its streams are not mixed into the Audius player.
-
-## Full-stack source
-
-The full-stack Next.js/Prisma implementation is being prepared separately. Production accounts, PostgreSQL persistence, Google OAuth, email delivery, and direct S3/R2 uploads are not enabled in this static preview. They require service credentials and a database/storage configuration in Netlify environment variables.
+The public preview does not yet include production accounts, PostgreSQL persistence, Google OAuth, or user uploads. These require a separately deployed backend, database, and object storage configuration.
 
 ## Music rights
 
-Audius tracks are played through Audius stream endpoints. Do not upload or distribute tracks unless you own them or have permission to do so.
+Audio is played through the respective provider's official player/stream. Do not upload or distribute music unless you own it or have permission.
