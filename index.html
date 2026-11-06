@@ -28,6 +28,10 @@
     @media(max-width:700px){.app{display:block;padding:8px 8px 98px}.sidebar{display:none}.main{padding:15px 13px 28px;min-height:calc(100vh - 110px)}.topbar{gap:9px;margin-bottom:19px}.arrows{display:none}.search{max-width:none}.profile span{display:none}.hero{padding:24px 20px;min-height:245px}.hero:after{right:-85px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{padding:8px}.section{margin-top:24px}.section h2{font-size:18px}.track-row{grid-template-columns:22px minmax(0,1fr) 34px 30px;gap:8px;padding:9px}.album{display:none}.player{left:8px;right:8px;bottom:8px;grid-template-columns:1fr auto;gap:8px;padding:9px 11px;min-height:72px}.now-cover{width:40px;height:40px}.controls{align-items:flex-end}.control-buttons{gap:13px}.control-buttons button[data-skip],.control-buttons button[data-repeat]{display:none}.timeline{width:180px}.duration{font-size:10px}}
     @media(max-width:390px){.timeline{width:135px}.hero h1{font-size:32px}.track-row{grid-template-columns:20px minmax(0,1fr) 28px}.track-row .like{display:none}}
   
+    .spotify-feature{margin-top:26px}
+    .spotify-player-shell{width:100%;min-width:280px;overflow:hidden;border:1px solid #30362a;border-radius:14px;background:#10110f}
+    .spotify-player-shell iframe{display:block;width:100%;border:0;border-radius:14px}
+    .spotify-note{margin:9px 2px 0;color:#8f9886;font-size:10px;line-height:1.5}
     .spotify-link{font-size:10px;color:#c3ed88;text-decoration:none;white-space:nowrap;font-weight:700;border:1px solid #46523a;padding:5px 7px;border-radius:9px}
     .spotify-link:hover{background:#c8f16918;border-color:#a9ce66}
     .track-row{grid-template-columns:34px minmax(0,1fr) minmax(90px,.7fr) 52px auto 32px}
@@ -58,10 +62,35 @@
       <div class="profile"><div class="avatar">S</div><span>Гость</span></div>
     </header>
     <section class="hero">
-      <div class="hero-copy"><div class="eyebrow">Твоя музыка. Твой момент.</div><h1>Поймай свой<br>ритм.</h1><p>Открывай новые звуки, собирай любимые треки и создавай настроение на каждый день.</p><div class="hero-actions"><button class="primary" id="heroPlay">▶ Слушать микс</button><button class="ghost" id="heroExplore">Исследовать</button></div></div>
+      <div class="hero-copy"><div class="eyebrow">Твоя музыка. Твой момент.</div><h1>Поймай свой<br>ритм.</h1><p>Открывай новые звуки, собирай любимые треки и создавай настроение на каждый день.</p><div class="hero-actions"><button class="primary" id="heroPlay">▶ Слушать хиты</button><button class="ghost" id="heroExplore">Исследовать</button></div></div>
     </section>
+
+    <section class="section spotify-feature" id="spotifySection">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">SPOTIFY PLAYLIST</div>
+          <h2>Популярные хиты</h2>
+          <p>Настоящие песни и исполнители — прямо из официального плеера Spotify</p>
+        </div>
+        <a class="see-all" href="https://open.spotify.com/playlist/31J0PX4kQOlImKIX3FT2nq" target="_blank" rel="noopener noreferrer">Открыть в Spotify ↗</a>
+      </div>
+      <div class="spotify-player-shell">
+        <iframe
+          title="Clean Pop Hits 2026 — Spotify playlist"
+          src="https://open.spotify.com/embed/playlist/31J0PX4kQOlImKIX3FT2nq?utm_source=generator&theme=0"
+          width="100%"
+          height="352"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+      </div>
+      <p class="spotify-note">Воспроизведение Spotify управляется самим Spotify. Для некоторых аккаунтов и треков доступность полного проигрывания зависит от региона и типа подписки.</p>
+    </section>
+
     <section class="section" id="featuredSection"><div class="section-head"><div><h2>Под настроение</h2><p>Подборка для твоего сегодняшнего дня</p></div><button class="see-all" data-view="all">Показать всё ↗</button></div><div class="cards" id="playlistCards"></div></section>
-    <section class="section"><div class="section-head"><div><h2 id="tracksHeading">Популярное сегодня</h2><p id="tracksSub">Треки, которые хочется включить ещё раз</p></div><button class="see-all" id="shuffleAll">Перемешать ↗</button></div><div class="track-panel" id="trackList"></div></section>
+    <section class="section"><div class="section-head"><div><h2 id="tracksHeading">Музыка независимых артистов</h2><p id="tracksSub">Открывай новые имена и звучание в каталоге Audius</p></div><button class="see-all" id="shuffleAll">Перемешать ↗</button></div><div class="track-panel" id="trackList"></div></section>
   </main>
 </div>
 <div class="player">
@@ -79,14 +108,7 @@
 <audio id="audio" preload="none"></audio>
 <script>
 
-const demoSongs=[
- {id:"demo-1",title:"Golden Hour",artist:"Soundwave Studio",album:"Warm Light",duration:"5:02",cover:"c1",genre:"chill",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
- {id:"demo-2",title:"Night Drive",artist:"Neon Avenue",album:"After Hours",duration:"5:12",cover:"c2",genre:"electronic",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"},
- {id:"demo-3",title:"Blue Distance",artist:"North Coast",album:"Open Water",duration:"5:04",cover:"c3",genre:"chill",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"},
- {id:"demo-4",title:"Slow Motion",artist:"Luna Fields",album:"Soft Focus",duration:"5:09",cover:"c4",genre:"chill",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"},
- {id:"demo-5",title:"Golden Dust",artist:"Atlas Bloom",album:"Solstice",duration:"5:01",cover:"c5",genre:"electronic",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"},
- {id:"demo-6",title:"Green Signals",artist:"Mira Nova",album:"Parallel",duration:"5:10",cover:"c6",genre:"electronic",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"}
-];
+const demoSongs=[];
 let songs=[...demoSongs],visibleSongs=[...songs],queue=[...songs];
 const playlists=[
  {name:"Slow mornings",desc:"Мягкое начало дня",cover:"c1",genre:"chill"},
@@ -110,8 +132,8 @@ function renderTracks(items=songs){visibleSongs=items;const list=document.getEle
 }
 function mapAudiusTrack(t,i){const genres=["c1","c2","c3","c4","c5","c6"];return {id:String(t.id),audiusId:String(t.id),title:t.title||"Untitled",artist:t.user?.name||"Audius artist",album:t.release_date||"Audius",duration:format(t.duration),cover:genres[i%genres.length],coverUrl:t.artwork?.["480x480"]||t.artwork?.["150x150"]||t.artwork?.["1000x1000"]||"",genre:(t.genre||"").toLowerCase(),src:"https://api.audius.co/v1/tracks/"+encodeURIComponent(t.id)+"/stream?app_name=Soundwave",permalink:t.permalink?"https://audius.co"+t.permalink:"https://audius.co"}}
 async function audiusRequest(path){const response=await fetch("https://api.audius.co/v1"+path,{headers:{Accept:"application/json"}});if(!response.ok)throw new Error("Audius API "+response.status);const payload=await response.json();return Array.isArray(payload.data)?payload.data:[]}
-async function loadTrending(){const sub=document.getElementById("tracksSub");sub.textContent="Загружаем реальные треки из каталога Audius…";try{const data=await audiusRequest("/tracks/trending?limit=24&time=week&app_name=Soundwave");if(!data.length)throw new Error("Каталог пока не вернул треки");songs=data.map(mapAudiusTrack);queue=[...songs];catalogSource="audius";renderCards();if(view==="home"){document.getElementById("tracksHeading").textContent="Популярное в Audius";sub.textContent="Актуальные композиции из открытого музыкального каталога";renderTracks(songs)}else renderCurrentView();}catch(error){catalogSource="demo";songs=[...demoSongs];queue=[...songs];renderCards();renderCurrentView();sub.textContent="Демо-каталог: сейчас не удалось связаться с Audius. "+(navigator.onLine?"Попробуй обновить страницу.":"Нет подключения к сети.");}}
-function renderCurrentView(){let items=songs,heading="Популярное в Audius",sub="Актуальные композиции из открытого каталога";if(view==="liked"){items=songs.filter(s=>liked.has(s.id));heading="Понравившееся";sub="Твоя личная коллекция"}if(view==="library"){items=songs.filter(s=>liked.has(s.id));heading="Моя библиотека";sub="Сохранённые композиции"}if(view==="electronic"){items=songs.filter(s=>/electronic|dance|house|techno|edm/i.test(s.genre));heading="Электроника";sub="Электронная музыка из Audius"}if(view==="chill"){items=songs.filter(s=>/ambient|chill|lofi|downtempo/i.test(s.genre));heading="Chill / Ambient";sub="Спокойные звуковые пространства"}document.getElementById("tracksHeading").textContent=heading;document.getElementById("tracksSub").textContent=sub;renderTracks(items)}
+async function loadTrending(){const sub=document.getElementById("tracksSub");sub.textContent="Загружаем реальные треки из каталога Audius…";try{const data=await audiusRequest("/tracks/trending?limit=24&time=week&app_name=Soundwave");if(!data.length)throw new Error("Каталог пока не вернул треки");songs=data.map(mapAudiusTrack);queue=[...songs];catalogSource="audius";renderCards();if(view==="home"){document.getElementById("tracksHeading").textContent="Популярное в Audius";sub.textContent="Актуальные композиции из открытого музыкального каталога";renderTracks(songs)}else renderCurrentView();}catch(error){catalogSource="unavailable";songs=[];queue=[];renderCards();renderCurrentView();sub.textContent="Каталог независимой музыки временно недоступен. Spotify-подборка выше продолжает работать отдельно."; }}
+function renderCurrentView(){let items=songs,heading="Музыка независимых артистов",sub="Актуальные композиции из открытого каталога Audius";if(view==="liked"){items=songs.filter(s=>liked.has(s.id));heading="Понравившееся";sub="Твоя личная коллекция"}if(view==="library"){items=songs.filter(s=>liked.has(s.id));heading="Моя библиотека";sub="Сохранённые композиции"}if(view==="electronic"){items=songs.filter(s=>/electronic|dance|house|techno|edm/i.test(s.genre));heading="Электроника";sub="Электронная музыка из Audius"}if(view==="chill"){items=songs.filter(s=>/ambient|chill|lofi|downtempo/i.test(s.genre));heading="Chill / Ambient";sub="Спокойные звуковые пространства"}document.getElementById("tracksHeading").textContent=heading;document.getElementById("tracksSub").textContent=sub;renderTracks(items)}
 function setView(v){view=v;document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===v));renderCurrentView()}
 function updateNowCover(s){const el=document.getElementById("nowCover"),art=safeImage(s.coverUrl);el.className="now-cover cover "+(s.cover||"c1");el.innerHTML=art?'<img src="'+escapeHtml(art)+'" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:9px">':iconDisc()}
 function playSong(s,autoplay=true){if(!s)return;if(!queue.some(x=>x.id===s.id))queue=[...visibleSongs];current=queue.findIndex(x=>x.id===s.id);if(current<0){queue=[s];current=0}audio.src=s.src;document.getElementById("nowTitle").textContent=s.title;document.getElementById("nowArtist").textContent=s.artist;updateNowCover(s);document.getElementById("nowLike").textContent=liked.has(s.id)?"♥":"♡";document.getElementById("nowLike").classList.toggle("on",liked.has(s.id));seek.value=0;document.getElementById("currentTime").textContent="0:00";document.getElementById("totalTime").textContent=s.duration||"0:00";if(autoplay){audio.play().then(()=>{playing=true;updatePlayIcon()}).catch(()=>showToast("Поток временно недоступен. Попробуй другой трек."))}else{playing=false;updatePlayIcon()}}
@@ -120,10 +142,10 @@ function updatePlayIcon(){document.getElementById("playIcon").innerHTML=playing?
 function next(){if(!queue.length)return;let idx=shuffle?Math.floor(Math.random()*queue.length):(current+1)%queue.length;playSong(queue[idx])}
 function prev(){if(audio.currentTime>3){audio.currentTime=0;return}if(!queue.length)return;playSong(queue[(current-1+queue.length)%queue.length])}
 function toggleLike(id){if(liked.has(id))liked.delete(id);else liked.add(id);localStorage.setItem("sw-liked",JSON.stringify([...liked]));renderCurrentView();if(current>=0)document.getElementById("nowLike").textContent=liked.has(queue[current]?.id)?"♥":"♡"}
-async function doSearch(q){const term=q.trim();if(!term){setView("home");return}view="search";lastSearch=term;document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));document.getElementById("tracksHeading").textContent="Поиск в Audius";document.getElementById("tracksSub").textContent="Ищем «"+term+"» в музыкальном каталоге…";renderTracks([]);try{const data=await audiusRequest("/tracks/search?query="+encodeURIComponent(term)+"&limit=24&app_name=Soundwave");if(lastSearch!==term)return;const results=data.map(mapAudiusTrack);document.getElementById("tracksSub").textContent=results.length+" результатов · Audius. Для Spotify открой отдельную ссылку у композиции.";renderTracks(results)}catch(error){if(lastSearch!==term)return;const demo=demoSongs.filter(s=>(s.title+" "+s.artist+" "+s.album).toLowerCase().includes(term.toLowerCase()));document.getElementById("tracksSub").textContent="Audius временно недоступен — показаны совпадения из демо-каталога.";renderTracks(demo)}}
+async function doSearch(q){const term=q.trim();if(!term){setView("home");return}view="search";lastSearch=term;document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));document.getElementById("tracksHeading").textContent="Поиск в Audius";document.getElementById("tracksSub").textContent="Ищем «"+term+"» в музыкальном каталоге…";renderTracks([]);try{const data=await audiusRequest("/tracks/search?query="+encodeURIComponent(term)+"&limit=24&app_name=Soundwave");if(lastSearch!==term)return;const results=data.map(mapAudiusTrack);document.getElementById("tracksSub").textContent=results.length+" результатов · Audius. Для Spotify открой отдельную ссылку у композиции.";renderTracks(results)}catch(error){if(lastSearch!==term)return;const demo=songs.filter(s=>(s.title+" "+s.artist+" "+s.album).toLowerCase().includes(term.toLowerCase()));document.getElementById("tracksSub").textContent="Audius временно недоступен — проверь подключение и попробуй снова.";renderTracks(demo)}}
 document.addEventListener("click",e=>{const spotify=e.target.closest("a.spotify-link");if(spotify)return;const n=e.target.closest("[data-view]");if(n){setView(n.dataset.view);return}const p=e.target.closest("[data-playlist]");if(p){const pl=playlists[Number(p.dataset.playlist)];const matches=songs.filter(s=>(s.genre||"").toLowerCase().includes(pl.genre));queue=matches.length?matches:[...songs];playSong(queue[0]);showToast("Плейлист: "+pl.name);return}const l=e.target.closest("[data-like]");if(l){e.stopPropagation();toggleLike(l.dataset.like);return}const row=e.target.closest(".track-row");if(row){const s=visibleSongs.find(x=>x.id===row.dataset.track);if(s){queue=[...visibleSongs];playSong(s)}}});
 document.getElementById("searchInput").addEventListener("input",e=>{clearTimeout(searchTimer);const q=e.target.value;searchTimer=setTimeout(()=>doSearch(q),320)});
-document.getElementById("heroPlay").onclick=()=>{queue=[...songs];playSong(queue[0]);showToast("Твой микс запущен")};
+document.getElementById("heroPlay").onclick=()=>document.getElementById("spotifySection").scrollIntoView({behavior:"smooth"});
 document.getElementById("heroExplore").onclick=()=>document.getElementById("featuredSection").scrollIntoView({behavior:"smooth"});
 document.getElementById("exploreBtn").onclick=document.getElementById("heroExplore").onclick;
 document.getElementById("playBtn").onclick=togglePlay;document.getElementById("nextBtn").onclick=next;document.getElementById("prevBtn").onclick=prev;
