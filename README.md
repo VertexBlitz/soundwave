@@ -1,24 +1,37 @@
 # Soundwave
 
-Responsive static music-streaming preview for Netlify.
+A responsive music-discovery preview deployed as a static site on Netlify.
 
-## Deploy to Netlify
+## Live preview
 
-1. Open the Deploy to Netlify link:
-   https://app.netlify.com/start/deploy?repository=https://github.com/VertexBlitz/soundwave
-2. Sign in to Netlify and authorize its GitHub App for the `VertexBlitz/soundwave` repository.
-3. Confirm the suggested settings and publish.
+https://wondrous-buttercream-752929.netlify.app
 
-The repository contains `index.html` and `netlify.toml`. Netlify publishes the repository root as a static site.
+## Deploy
 
-## Preview features
+Netlify builds the repository root:
+- Build command: `echo 'Soundwave preview is ready'`
+- Publish directory: `.`
 
-- Responsive dark interface
-- Search across demo tracks
-- Playlist cards
-- HTML5 audio player with play/pause, next/previous, seek, volume, shuffle and repeat
-- Likes stored in the current browser using localStorage
+The preview has no build-time secrets or database requirement.
 
-## Scope
+## Features in the live preview
 
-This is a front-end preview. It does not yet include server-side accounts, Google OAuth, PostgreSQL/Prisma persistence, artist uploads, or a production music-provider integration. The demo player points to sample audio streams; replace them with properly licensed catalog streams before a public music launch.
+- Responsive dark layout
+- Live Audius trending catalogue and track search (read-only public API)
+- HTML5 streaming player for tracks returned by Audius
+- Play/pause, next/previous, seek, volume, shuffle and repeat
+- Curated mood cards
+- Likes stored in the current browser with localStorage
+- Separate Spotify search links for each track
+
+## Spotify
+
+Spotify links open Spotify search for the selected artist and track. Soundwave does not extract or proxy Spotify audio. Spotify playback stays on Spotify; its streams are not mixed into the Audius player.
+
+## Full-stack source
+
+The full-stack Next.js/Prisma implementation is being prepared separately. Production accounts, PostgreSQL persistence, Google OAuth, email delivery, and direct S3/R2 uploads are not enabled in this static preview. They require service credentials and a database/storage configuration in Netlify environment variables.
+
+## Music rights
+
+Audius tracks are played through Audius stream endpoints. Do not upload or distribute tracks unless you own them or have permission to do so.
